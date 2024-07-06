@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘의 성경공부</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 {
+            color: #4a90e2;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .input-group input,
+        .input-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-group button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .input-group button:disabled {
+            background-color: #ccc;
+        }
+        .todo-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+        .todo-item span {
+            flex-grow: 1;
+        }
+        .todo-item button {
+            margin-left: 10px;
+            background-color: #e94e77;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>오늘의 성경공부</h1>
+    <div class="container">
+        <div class="input-group">
+            <label for="keyword">성경구절 키워드</label>
+            <input type="text" id="keyword" placeholder="키워드를 입력하세요" />
+        </div>
+        <div class="input-group">
+            <label for="content">공부한 내용</label>
+            <textarea id="content" rows="4" placeholder="공부한 내용을 입력하세요"></textarea>
+        </div>
+        <div class="input-group">
+            <button id="addTodo" onclick="addTodo()">추가</button>
+        </div>
+        <div id="todoList"></div>
+    </div>
+
+    <script>
+        function addTodo() {
+            const keyword = document.getElementById('keyword').value;
+            const content = document.getElementById('content').value;
+            const date = new Date().toLocaleDateString();
+
+            if (keyword && content) {
+                const todoList = document.getElementById('todoList');
+
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                todoItem.innerHTML = `<span>${keyword}: ${content} (날짜: ${date})</span>
+                                      <button onclick="removeTodoItem(this)">완료</button>`;
+
+                todoList.appendChild(todoItem);
+
+                // Clear the inputs
+                document.getElementById('keyword').value = '';
+                document.getElementById('content').value = '';
+            }
+        }
+
+        function removeTodoItem(button) {
+            const todoItem = button.parentElement;
+            todoItem.remove();
+        }
+    </script>
+</body>
+</html>
